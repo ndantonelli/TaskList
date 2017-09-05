@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { Modal, View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import ModalTitle from './modal/ModalTitle'
 import Input from './modal/Input'
 import NumInput from './modal/NumInput'
@@ -72,7 +72,7 @@ export default class InputModal extends Component {
                 onRequestClose={this.cancelModal}
                 transparent={true}
                 visible={visibility}>
-                <KeyboardAvoidingView behavior='padding' style={styles.container}>
+                <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null} style={styles.container}>
                     <View style={{backgroundColor:'white', borderRadius:5, paddingBottom:24}}>
                         <ModalTitle valid={this.state.validName} cancelModal={this.cancelModal} submitModal={this.submitModal}/>
                         <Input placeholder='So what are we doing?' text={this.state.name} valid={this.state.validName} onChangeText={this.onChangeText} submitModal={this.submitModal}/>

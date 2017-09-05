@@ -11,10 +11,11 @@ const styles = StyleSheet.create({
       },
     text:{
         fontSize:24,
-        fontWeight:'bold'
+        fontWeight:'bold',
     },
     spacer:{
         flex:.33,
+        minHeight:15,
         alignItems:'center',
         justifyContent:'center'
     }
@@ -26,7 +27,7 @@ export default class NumInput extends Component {
     return (
         <View style={styles.container}>
             <View style={{flexDirection:'row'}}>
-                <TouchableOpacity style={[styles.spacer]} 
+                <TouchableOpacity style={styles.spacer} 
                     disabled={quantity == 0} 
                     onPress={decrement}>
                     <Icon name='remove' color={quantity==0 ? 'rgba(255,0,0,.3)' : 'red'}/>
@@ -35,7 +36,7 @@ export default class NumInput extends Component {
                     <Text style={styles.text}>{quantity}</Text>
                 </View>
 
-                <TouchableOpacity style={[styles.spacer]} onPress={increment}>
+                <TouchableOpacity style={styles.spacer} onPress={increment}>
                     <Icon name='add' color='#00E676'/>
                 </TouchableOpacity>
             </View>

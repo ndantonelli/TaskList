@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         paddingLeft:4,
         paddingRight:4,
         marginBottom: 24,
-        borderBottomWidth: 1,
+        borderBottomWidth: 1
     },
     valid:{
         borderBottomColor: 'rgba(0, 0, 0, 0.2)'
@@ -32,6 +32,7 @@ export default class Input extends Component {
             placeholder={placeholder}
             onChangeText={onChangeText}
             onSubmitEditing={submitModal}
+            underlineColorAndroid='rgba(0,0,0,0)'
         />
     )
   }
