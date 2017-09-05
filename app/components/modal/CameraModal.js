@@ -88,6 +88,7 @@ export default class CameraModal extends Component {
 
     async snap() {
         if (this.camera) {
+            console.log('ratios', await this.camera.getSupportedRatiosAsync());
             let uri = await this.camera.takePictureAsync();
             this.setState({uri: uri, isPreview: true});
         }
@@ -162,7 +163,7 @@ export default class CameraModal extends Component {
                         <Icon name='chevron-left' color='white' size={36}/>
                     </TouchableOpacity>
                 </View>
-                <Camera style={styles.camera} type={this.state.type} flashMode={this.state.flashType} ref={ref => { this.camera = ref; }}/>
+                <Camera style={styles.camera} type={this.state.type} flashMode={this.state.flashType} ref={ref => { this.camera = ref; }} ratio='1:1'/>
 
                 <View style={{justifyContent:'center', alignItems:'center', flexDirection:'row'}}>
                     <TouchableOpacity style={[styles.button, styles.spacer]} onPress={this.toggleFrontBack}>
