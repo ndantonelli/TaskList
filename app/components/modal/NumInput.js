@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 export default class NumInput extends Component {
   render() {
     const {quantity, increment, decrement} = this.props
-    return (
+    return ( 
         <View style={styles.container}>
             <View style={{flexDirection:'row'}}>
                 <TouchableOpacity style={styles.spacer} 
