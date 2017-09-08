@@ -4,7 +4,9 @@ import { Camera, Permissions } from 'expo';
 import { Icon } from 'react-native-elements';
 import CameraView from './camera/CameraView'
 
-const spacerHeight = (Dimensions.get('window').height - Dimensions.get('window').width) / 2;
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
+const spacerHeight = height - width / 2;
 
 const styles = StyleSheet.create({
     container:{ 
@@ -63,13 +65,8 @@ export default class CameraModal extends Component {
 
     cancelModal(){
         const {toggleModal} = this.props;
-        if(this.state.isPreview){
-            this.hatePic();
-        }
-        else{
-            this.resetModal();
-            toggleModal();
-        }
+        this.resetModal();
+        toggleModal();
     }
 
     lovePic(){
@@ -90,31 +87,25 @@ export default class CameraModal extends Component {
 
     renderView(){
         const { hasCameraPermission } = this.state;
-        if(this.state.isPreview){
-            let w = Dimensions.get('window').width;
-            let h = Dimensions.get('window').height;
-            let spacerHeight = (h - w)/2;
-            return(
-                <Image style={{flex:1, alignItems:'flex-end', flexDirection:'row', resizeMode: 'contain', backgroundColor:'black'}} source={{uri: this.state.uri}}>
-                    <TouchableOpacity style={styles.button} onPress={this.hatePic}>
-                        <View>
-                            <Icon name='sentiment-neutral' color='white' size={40}/>
-                            <Text style={styles.buttonText}>Nope</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={this.lovePic}>
-                        <View>
-                            <Icon name='favorite' color='white' size={40}/>
-                            <Text style={styles.buttonText}>Love</Text>
-                        </View>
-                    </TouchableOpacity>
-                </Image>
-            )
-        }else {
-          return (
-            <CameraView registerUri={this.registerUri} />
-          );
-        }
+        let w = Dimensions.get('window').width;
+        let h = Dimensions.get('window').height;
+        let spacerHeight = (h - w)/2;
+        return(
+            <Image style={{flex:1, alignItems:'flex-end', flexDirection:'row', resizeMode: 'contain', backgroundColor:'black'}} source={{uri: this.state.uri}}>
+                <TouchableOpacity style={styles.button} onPress={this.hatePic}>
+                    <View>
+                        <Icon name='sentiment-neutral' color='white' size={40}/>
+                        <Text style={styles.buttonText}>Nope</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={this.lovePic}>
+                    <View>
+                        <Icon name='favorite' color='white' size={40}/>
+                        <Text style={styles.buttonText}>Love</Text>
+                    </View>
+                </TouchableOpacity>
+            </Image>
+        )
     }
     render() {
         const {visibility} = this.props;
