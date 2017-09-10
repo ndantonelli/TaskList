@@ -65,6 +65,7 @@ class ZoomImage extends Component {
     }
 
     processPinch(x1, y1, x2, y2) {
+        console.log('processing pinch');
         let distance = calcDistance(x1, y1, x2, y2);
         let center = calcCenter(x1, y1, x2, y2);
 
@@ -104,7 +105,6 @@ class ZoomImage extends Component {
     }
 
     processTouch(x, y) {
-
         if (!this.state.isMoving) {
             this.setState({
                 isMoving: true,
@@ -157,6 +157,7 @@ class ZoomImage extends Component {
             onPanResponderGrant: (evt, gestureState) => {},
             onPanResponderMove: (evt, gestureState) => {
                 let touches = evt.nativeEvent.touches;
+                console.log('touches', gestureState.numberActiveTouches);
                 if (touches.length == 2) {
                     let touch1 = touches[0];
                     let touch2 = touches[1];

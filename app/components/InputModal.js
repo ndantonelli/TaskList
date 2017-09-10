@@ -65,6 +65,8 @@ export default class InputModal extends Component {
         });
         toggleModal();
     }
+
+    toggleModal(){}
     render() {
         const {visibility, toggleCameraModal} = this.props;
         return (
@@ -77,7 +79,7 @@ export default class InputModal extends Component {
                         <ModalTitle valid={this.state.validName} cancelModal={this.cancelModal} submitModal={this.submitModal}/>
                         <Input placeholder='So what are we doing?' text={this.state.name} valid={this.state.validName} onChangeText={this.onChangeText} submitModal={this.submitModal}/>
                         <NumInput quantity={this.state.quantity} decrement={this.onDecrementQuantity} increment={this.onIncrementQuantity}/>
-                        <PicView />
+                        <PicView toggleModal={this.toggleModal}/>
                     </View>
                 </KeyboardAvoidingView>
             </Modal>

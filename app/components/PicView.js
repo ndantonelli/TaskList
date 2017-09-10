@@ -40,6 +40,15 @@ const styles = StyleSheet.create({
 })
 
 export default class PicView extends Component {
+  constructor(props, context){
+    super(props, context);
+    this._toggleModal = this._toggleModal.bind(this);
+  }
+
+  _toggleModal(){
+    const {photo, toggleModal} = this.props;
+    toggleModal(photo ? true : false, photo ? photo.uri : null);
+  }
   renderPhoto(){
     const {photo, removeImage} = this.props;
     if(photo){
@@ -59,9 +68,8 @@ export default class PicView extends Component {
     )
   }
   render() {
-    const {toggleModal} = this.props;
     return (
-      <TouchableWithoutFeedback onPress={toggleModal}>
+      <TouchableWithoutFeedback onPress={this._toggleModal}>
         <View style={styles.addPic}>
           {this.renderPhoto()}
         </View>
