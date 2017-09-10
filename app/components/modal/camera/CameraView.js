@@ -6,8 +6,8 @@ import LoadingOverlay from '../../LoadingOverlay';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-const cameraHeight = Platform.OS === 'ios' ? width : width*4/3;
-const spacerHeight = Platform.OS === 'ios' ? (height - width / 2) : ((height-width*4/3));
+const cameraHeight = Platform.OS === 'ios' ? width : (width*4/3);
+const spacerHeight = Platform.OS === 'ios' ? ((height - width) / 2) : ((height-width*4/3));
 
 
 const styles = StyleSheet.create({
@@ -21,23 +21,13 @@ const styles = StyleSheet.create({
         width:width 
     },
     button:{
+        flex:.33,
         alignItems:'center', 
         justifyContent:'center', 
         height:spacerHeight, 
-        width:width / 2},
-    buttonText:{
-        width:width / 2,
-        color:'white',
-        textAlign:'center',
-        marginTop:4
-    },
-    spacer:{
-        flex:.33,
-        alignItems:'center',
-        justifyContent:'center'
     },
     backButton:{
-        flex:1, 
+        height:spacerHeight,
         justifyContent:'center', 
         alignItems:'flex-start',
         padding:16
@@ -109,13 +99,15 @@ export default class CameraView extends Component {
     }
 
     renderSpacer(){
+        const {cancelModal} = this.props;
         if(Platform.OS === 'ios'){
+            console.log('spacer height', spacerHeight);
+            console.log('camera height', cameraHeight);
+            console.log('view height', height);
             return (
-                <View style={{height:spacerHeight}}>
-                    <TouchableOpacity style={styles.backButton} onPress={this.cancelModal}>
-                        <Icon name='chevron-left' color='white' size={36}/>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.backButton} onPress={cancelModal}>
+                    <Icon name='chevron-left' color='white' size={36}/>
+                </TouchableOpacity>
             );
         }
         return null;
@@ -135,13 +127,13 @@ export default class CameraView extends Component {
                 <Camera style={styles.camera} type={this.state.type} flashMode={this.state.flashType} ref={ref => { this.camera = ref; }} ratio='4:3'/>
 
                 <View style={{justifyContent:'center', alignItems:'center', flexDirection:'row'}}>
-                    <TouchableOpacity style={[styles.button, styles.spacer]} onPress={this.toggleFrontBack}>
+                    <TouchableOpacity style={[styles.button]} onPress={this.toggleFrontBack}>
                         <Icon style={{height:30}} name={this.getCameraTypeIcon()} color='white'/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.spacer]} onPress={this.snap}>
+                    <TouchableOpacity style={[styles.button]} onPress={this.snap}>
                         <Icon name='camera' color='white' size={80}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.spacer]} onPress={this.toggleFlash}>
+                    <TouchableOpacity style={[styles.button]} onPress={this.toggleFlash}>
                         <Icon name={this.getFlashIcon()} color='white'/>
                     </TouchableOpacity>
                 </View>
