@@ -4,7 +4,7 @@ This is a prototype app built in React Native.  It is a task list that you can a
 * Add a task to your list 
   * Add a picture to make finding the same thing easier
   * Add a quantity (for things like groceries)
-* View the sorted task list (Sorted by completed or pending and then alphabetically)
+* View the sorted task list (Sorted by pending or completed and then alphabetically)
 * Expand that task in the list to view more info like the picture
   * Complete/Uncomplete the task
   * Remove the specific task
