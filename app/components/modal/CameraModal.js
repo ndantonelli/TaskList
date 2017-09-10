@@ -10,7 +10,8 @@ export default class CameraModal extends Component {
         super(props,context);
         this.state = {
             isPreview: false,
-            uri:null
+            uri:null,
+            exists:false,
         };
         this.cancelModal = this.cancelModal.bind(this);
         this.lovePic = this.lovePic.bind(this);
@@ -29,7 +30,7 @@ export default class CameraModal extends Component {
         }
         else{
             this.resetModal();
-            toggleModal();
+            toggleModal(-1, false);
         }
     }
 
@@ -50,9 +51,10 @@ export default class CameraModal extends Component {
     }
 
     renderView(){
-        if(this.state.isPreview){
+        const {exists, uri} = this.props;
+        if(this.state.isPreview || exists){
             return(
-                <Preview uri={this.state.uri} lovePic={this.lovePic} hatePic={this.hatePic}/>
+                <Preview exists={exists} uri={exists ? uri : this.state.uri} lovePic={this.lovePic} hatePic={this.hatePic} cancelModal={this.cancelModal}/>
             )
         }else {
           return (
