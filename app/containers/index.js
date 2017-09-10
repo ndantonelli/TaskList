@@ -38,7 +38,7 @@ const mapStateToProps = (state) => ({
 class App extends Component {
   constructor(props, context){
     super(props, context);
-    this.state = {displayAddModal:false, displayCamerModal:false, displayPreviewModal:false,selected:false, cameraIndex:-1}
+    this.state = {displayAddModal:false, displayCamerModal:false, displayPreviewModal:false,selected:false, cameraIndex:-1, imageExists: false, uri:null}
     this.onAddTodo = this.onAddTodo.bind(this);
     this.onAddPhoto = this.onAddPhoto.bind(this);
     this.onToggleTodo = this.onToggleTodo.bind(this);
@@ -60,7 +60,7 @@ class App extends Component {
 
   onAddPhoto(obj, index){
     const {dispatch} = this.props;
-    this.toggleCameraModal(-1);
+    this.toggleCameraModal(-1, false, null);
     dispatch(actionCreators.addPhoto(obj, index));
   }
 
@@ -92,6 +92,7 @@ class App extends Component {
   onRemoveImage(index){
     const {dispatch} = this.props;
     dispatch(actionCreators.removeImage(index));
+    this.setState({imageExists:false, uri:null});
   }
 
   onCompleteSelected(){
@@ -111,8 +112,8 @@ class App extends Component {
     this.setState({displayAddModal:!this.state.displayAddModal})
   }
 
-  toggleCameraModal(index){
-    this.setState({displayCamerModal:!this.state.displayCamerModal,cameraIndex:index});
+  toggleCameraModal(index, exists, uri){
+    this.setState({displayCamerModal:!this.state.displayCamerModal,cameraIndex:index, imageExists: exists, uri:uri});
   }
 
   itemsSelected(anySelected){
@@ -165,13 +166,12 @@ class App extends Component {
     const {items, anyCompleted} = this.props;
     return (
         <View style={styles.container}>
-          {/* <TouchableOpacity onPress={this.removeAll.bind(this)}>
-            <Text style={{fontSize:40, padding:40}}>REMOVE ALL</Text>
-          </TouchableOpacity> */}
           <CameraModal visibility={this.state.displayCamerModal} 
             toggleModal={this.toggleCameraModal} 
             index={this.state.cameraIndex}
             submitModal={this.onAddPhoto}
+            exists={this.state.imageExists}
+            uri={this.state.uri}
             />
           <InputModal visibility={this.state.displayAddModal} 
             toggleModal={this.toggleAddModal} 

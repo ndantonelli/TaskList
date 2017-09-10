@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, View, StyleSheet, TouchableOpacity, Text, Image, ImageEditor, Dimensions, ImageStore, Platform  } from 'react-native';
+import { Modal, View, StyleSheet, TouchableOpacity, Text, Image, ImageEditor, Dimensions, ImageStore, Platform, TouchableWithoutFeedback  } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import { Icon } from 'react-native-elements';
 
@@ -36,23 +36,35 @@ const styles = StyleSheet.create({
 })
 
 export default class Preview extends Component {
+    constructor(props, context){
+        super(props, context);
+        this.closeModal = this.closeModal.bind(this);
+    }
+    closeModal(){
+        const {exists, cancelModal} = this.props;
+        if(exists){
+            cancelModal();
+        }
+    }
     renderSpacer(){
-        const {cancelModal} = this.props;
+        const {exists} = this.props;
         if(Platform.OS === 'ios'){
+            return (
+                <View style={{height:spacerHeight}}/>
+            );
+        }
+        else if(exists){
             return (
                 <View style={{height:spacerHeight}}/>
             );
         }
         return null;
     }
-    render() {
-        const {uri, hatePic, lovePic} = this.props;
-        return(
-            <View style={styles.container}>
-                {this.renderSpacer()}
-                
-                <Image style={styles.image} source={{uri: uri}} />
 
+    renderButtons(){
+        const {exists, lovePic, hatePic} = this.props;
+        if(!exists){
+            return (
                 <View style={{justifyContent:'center', alignItems:'center', flexDirection:'row'}}>
                     <TouchableOpacity style={styles.button} onPress={hatePic}>
                         <View>
@@ -67,6 +79,23 @@ export default class Preview extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+            )
+        }
+        return (
+            <View style={styles.button}/>
+        )
+    }
+    render() {
+        const {uri} = this.props;
+        return(
+            <View style={styles.container}>
+                {this.renderSpacer()}
+                
+                <TouchableWithoutFeedback onPress={this.closeModal}>
+                    <Image style={styles.image} source={{uri: uri}} />
+                </TouchableWithoutFeedback>
+
+                {this.renderButtons()}
             </View>
         )
     }

@@ -104,9 +104,9 @@ export default class ExpandableItem extends Component {
         return null;
     }
 
-    _toggleModal(){
+    _toggleModal(exists, uri){
         const {index, toggleModal} = this.props;
-        toggleModal(index);
+        toggleModal(index, exists, uri);
     }
 
     _removeImage(){
