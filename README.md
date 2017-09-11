@@ -11,6 +11,7 @@ This is a prototype app built in React Native.  It is a task list that you can a
 
 
 * View the sorted task list (Sorted by pending or completed and then alphabetically)
+
     ![Full List](./demoPics/fullList.png)
 
 
