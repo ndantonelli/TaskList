@@ -1,6 +1,6 @@
 ![Empty List](./demoPics/home.png)
 
-This is a prototype app built in React Native.  It is a task list that you can add tasks to along with a picture.  It is not overly complex, but it takes a fairly simple idea an adds some cool features. The app uses Redux and Redux persist to manage state and make sure that the app repopulates correctly.  (Screenshots coming soon)
+This is a prototype app built in React Native.  It is a task list that you can add tasks to along with a picture.  It is not overly complex, but it takes a fairly simple idea an adds some cool features. The app uses Redux and Redux persist to manage state and make sure that the app repopulates correctly.
 
 ## Features
 * Add a task to your list 
